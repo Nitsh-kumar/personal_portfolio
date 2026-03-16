@@ -86,7 +86,7 @@ export default function About() {
               }}
             >
               <Image 
-                src="/Nit profile.jfif" 
+                src="/nitish-profile.jpg" 
                 alt="Nitish Profile" 
                 fill 
                 className="object-cover" 
