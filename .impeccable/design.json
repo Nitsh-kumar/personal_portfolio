@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-25T14:57:00.000Z",
+  "title": "Design System: Personal Portfolio | Generative AI Developer",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Arc Cyan",
+        "canonical": "#00d4ff",
+        "tonalRamp": ["#00242e", "#004759", "#006b85", "#0094b8", "#00bde8", "#00d4ff", "#4de1ff", "#99eeff"]
+      },
+      "arc-cyan-hover": {
+        "role": "primary",
+        "displayName": "Arc Cyan Hover",
+        "canonical": "#00aacc",
+        "tonalRamp": ["#001c22", "#003944", "#005566", "#007288", "#008eaa", "#00aacc", "#33bbd6", "#80d5e6"]
+      },
+      "void-navy": {
+        "role": "neutral",
+        "displayName": "Void Navy",
+        "canonical": "#05080f",
+        "tonalRamp": ["#010204", "#05080f", "#0a101f", "#10182e", "#16223e", "#202e50", "#2f4069", "#485b88"]
+      },
+      "section-navy": {
+        "role": "neutral",
+        "displayName": "Section Navy",
+        "canonical": "#070b14",
+        "tonalRamp": ["#020406", "#070b14", "#0e1526", "#152038", "#1c2a4a", "#26375f", "#354a7c", "#4f659d"]
+      },
+      "reactor-plate": {
+        "role": "neutral",
+        "displayName": "Reactor Plate",
+        "canonical": "#0a1628",
+        "tonalRamp": ["#040910", "#0a1628", "#102340", "#173158", "#1e3e70", "#28518f", "#376ab5", "#5c8cd6"]
+      },
+      "phosphor-white": {
+        "role": "neutral",
+        "displayName": "Phosphor White",
+        "canonical": "#e8f4ff",
+        "tonalRamp": ["#1a2430", "#384758", "#5b6e82", "#8498ae", "#b0c3d8", "#cee0f2", "#e8f4ff", "#f5faff"]
+      },
+      "slate-telemetry": {
+        "role": "neutral",
+        "displayName": "Slate Telemetry",
+        "canonical": "#8899aa",
+        "tonalRamp": ["#13171d", "#262f3a", "#424f5e", "#617285", "#8899aa", "#a4b3c2", "#c4cfda", "#e3e9ef"]
+      },
+      "laser-border": {
+        "role": "neutral",
+        "displayName": "Laser Border",
+        "canonical": "rgba(0, 212, 255, 0.13)",
+        "tonalRamp": ["rgba(0, 212, 255, 0.04)", "rgba(0, 212, 255, 0.08)", "rgba(0, 212, 255, 0.13)", "rgba(0, 212, 255, 0.2)", "rgba(0, 212, 255, 0.3)", "rgba(0, 212, 255, 0.45)", "rgba(0, 212, 255, 0.65)", "rgba(0, 212, 255, 0.85)"]
+      },
+      "tag-bg": {
+        "role": "neutral",
+        "displayName": "Tag Background",
+        "canonical": "rgba(0, 212, 255, 0.04)",
+        "tonalRamp": ["rgba(0, 212, 255, 0.02)", "rgba(0, 212, 255, 0.04)", "rgba(0, 212, 255, 0.06)", "rgba(0, 212, 255, 0.1)", "rgba(0, 212, 255, 0.15)", "rgba(0, 212, 255, 0.25)", "rgba(0, 212, 255, 0.4)", "rgba(0, 212, 255, 0.6)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display Hero", "purpose": "Hero title statement ('Building minds with code.')" },
+      "headline": { "displayName": "Section Headline", "purpose": "Major section headers ('Selected Work', 'My Toolkit')" },
+      "title": { "displayName": "Card Title", "purpose": "Project and container headings" },
+      "body": { "displayName": "Technical Body", "purpose": "Readable descriptions, summaries, and messages" },
+      "label": { "displayName": "Telemetry Eyebrow", "purpose": "All-caps section tags and category overlines" }
+    },
+    "shadows": [
+      { "name": "laser-glow-sm", "value": "0 0 12px rgba(0, 212, 255, 0.13)", "purpose": "Input focus and subtle element highlighting." },
+      { "name": "ambient-bloom-md", "value": "0 20px 60px rgba(0, 212, 255, 0.1)", "purpose": "Hover elevation for project cards." },
+      { "name": "arc-pulse-lg", "value": "0 0 24px rgba(0, 212, 255, 0.4)", "purpose": "Intense emission for active buttons and interactive triggers." }
+    ],
+    "motion": [
+      { "name": "tilt-spring", "value": "transform 0.15s ease-out", "purpose": "3D perspective card and container tilting." },
+      { "name": "glow-fade", "value": "all 0.3s ease", "purpose": "Border brightening and ambient emission transitions." },
+      { "name": "scanline-sweep", "value": "scanline 5s linear infinite", "purpose": "Subtle ambient radar line animation." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-visibility primary call-to-action button for submissions or project triggers.",
+      "html": "<button class=\"ds-btn-primary\"><span>DEPLOY AGENT</span> &rarr;</button>",
+      "css": ".ds-btn-primary { background: #00d4ff; color: #05080f; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; border-radius: 8px; padding: 14px 28px; border: none; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; display: inline-flex; align-items: center; gap: 8px; } .ds-btn-primary:hover { background: #00aacc; box-shadow: 0 0 24px rgba(0, 212, 255, 0.4); transform: translateY(-1px); }"
+    },
+    {
+      "name": "Project Showcase Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Elevated project substrate with laser border, top accent gradient, and interactive 3D perspective.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-accent\"></div><div class=\"ds-card-title\">GPTCraft</div><p class=\"ds-card-body\">A custom GPT system connecting cutting-edge MCP servers with Groq and LangChain.</p><div class=\"ds-card-footer\"><span class=\"ds-card-link\">View Project &rarr;</span></div></div>",
+      "css": ".ds-card { position: relative; background: #0a1628; border: 1px solid rgba(0, 212, 255, 0.13); border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px; transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease; } .ds-card:hover { border-color: rgba(0, 212, 255, 0.27); box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1); transform: translateY(-2px); } .ds-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #00d4ff, transparent); opacity: 0.7; border-top-left-radius: 12px; border-top-right-radius: 12px; } .ds-card-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #e8f4ff; } .ds-card-body { font-family: 'Space Mono', monospace; font-size: 13px; color: #8899aa; line-height: 1.6; margin: 0; } .ds-card-footer { margin-top: auto; padding-top: 16px; } .ds-card-link { font-family: 'Space Mono', monospace; font-size: 14px; color: #00d4ff; text-decoration: none; font-weight: 500; }"
+    },
+    {
+      "name": "Tech Stack Tag",
+      "kind": "chip",
+      "refersTo": "chip-tag",
+      "description": "Compact technical stack pill for project cards and architecture tags.",
+      "html": "<span class=\"ds-chip\">LANGCHAIN</span>",
+      "css": ".ds-chip { display: inline-block; font-family: 'Space Mono', monospace; font-size: 10px; background: rgba(0, 212, 255, 0.04); border: 1px solid rgba(0, 212, 255, 0.08); color: rgba(0, 212, 255, 0.8); border-radius: 6px; padding: 3px 10px; letter-spacing: 0.5px; }"
+    },
+    {
+      "name": "Skill Pill Indicator",
+      "kind": "chip",
+      "refersTo": "chip-tag",
+      "description": "Rounded full-pill toolkit badge with interactive scale and glow feedback.",
+      "html": "<span class=\"ds-pill\">FASTAPI</span>",
+      "css": ".ds-pill { display: inline-block; font-family: 'Space Mono', monospace; font-size: 11px; background: #0a1628; border: 1px solid rgba(0, 212, 255, 0.2); color: #00d4ff; border-radius: 999px; padding: 6px 16px; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; cursor: default; } .ds-pill:hover { transform: scale(1.05); border-color: rgba(0, 212, 255, 0.53); box-shadow: 0 0 14px rgba(0, 212, 255, 0.27); }"
+    },
+    {
+      "name": "Terminal Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Monospace input container with glowing laser focus ring and reactive focus states.",
+      "html": "<input type=\"text\" class=\"ds-input\" placeholder=\"Subject or inquiry...\" />",
+      "css": ".ds-input { background: #0a1628; color: #e8f4ff; font-family: 'Space Mono', monospace; font-size: 13px; border-radius: 8px; padding: 12px 16px; width: 100%; border: 1px solid rgba(0, 212, 255, 0.13); outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; box-sizing: border-box; } .ds-input:focus { border-color: #00d4ff; box-shadow: 0 0 12px rgba(0, 212, 255, 0.13); }"
+    },
+    {
+      "name": "Telemetry Navigation Header",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Top telemetry bar with frosted glass backdrop and high-contrast section indicators.",
+      "html": "<header class=\"ds-nav\"><div class=\"ds-nav-brand\">NIT'S PORTFOLIO</div><nav class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link active\">WORK</a><a href=\"#\" class=\"ds-nav-link\">ABOUT</a><a href=\"#\" class=\"ds-nav-link\">CONTACT</a></nav></header>",
+      "css": ".ds-nav { height: 80px; background: rgba(5, 8, 15, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0, 212, 255, 0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; } .ds-nav-brand { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: #e8f4ff; } .ds-nav-links { display: flex; gap: 32px; } .ds-nav-link { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; text-decoration: none; color: rgba(0, 212, 255, 0.4); transition: color 0.3s ease; position: relative; } .ds-nav-link:hover, .ds-nav-link.active { color: #00d4ff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Synthetic Foundry",
+    "overview": "The Synthetic Foundry frames the portfolio not as a static resume, but as an active, high-velocity engineering station where autonomous AI agents, resilient RAG pipelines, and model architectures are forged and deployed. The atmosphere evokes industrial computational precision: deep void canvas substrates, laser-etched container borders, and high-frequency electric cyan accents that bloom into luminescence upon user engagement.\n\nThe visual tone is uncompromisingly precise, functional, and technological. The experience rejects both generic corporate SaaS tropes (pastel gradient meshes, bubbly cards, stock vector illustrations) and chaotic cyberpunk clutter (unreadable green terminal waterfalls, gratuitous glitch filters). Every visual element serves scannability and technical credibility, proving deep fluency in modern AI infrastructure and software craft.",
+    "keyCharacteristics": [
+      "Deep multi-tiered navy void surfaces (#05080f, #070b14, #0a1628) creating rich visual hierarchy without muddy shadows.",
+      "High-contrast dual-typography engine pairing expressive architectural headings (Syne) with rigorous terminal telemetry (Space Mono).",
+      "Restrained, laser-focused Arc Cyan accents (#00d4ff) reserved strictly for active signals, links, and high-leverage interactive feedback.",
+      "Physical interactive depth driven by 3D perspective shifts, luminous boundary illumination, and a responsive particle field."
+    ],
+    "rules": [
+      {
+        "name": "The Arc Economy Rule",
+        "body": "Arc Cyan (#00d4ff) must cover no more than 10% of any viewport. Its power and signal value stem entirely from scarcity; overusing cyan fills destroys the impression of precision telemetry.",
+        "section": "colors"
+      },
+      {
+        "name": "The Deep Void Rule",
+        "body": "Surface backgrounds must never use flat, uncalibrated pure black (#000000). The canvas must maintain its deep cobalt tint (#05080f) so luminous laser edges and ambient emissions retain natural physical bloom.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dual-Frequency Rule",
+        "body": "Syne handles human expression and editorial gravity; Space Mono handles operational data, technical tags, and navigation. Never set body paragraphs in Syne or hero headlines in Space Mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Telemetry Tracking Rule",
+        "body": "All Space Mono labels and overlines must be rendered in full uppercase with explicit letter-spacing (2px to 4px / 0.25em) to ensure instant horizontal scannability.",
+        "section": "typography"
+      },
+      {
+        "name": "The Darkroom Glow Rule",
+        "body": "In dark interfaces, depth is projected through light emission rather than shadow occlusion. Surfaces remain flat at rest; they reveal depth by glowing forward when touched by cursor or keyboard focus.",
+        "section": "elevation"
+      },
+      {
+        "name": "The 3D Parallax Rule",
+        "body": "Interactive project cards must support smooth perspective tilt (up to 15 degrees) mapped to cursor offset, translating inner content forward along the z-axis (translateZ(20px) to translateZ(30px)).",
+        "section": "elevation"
+      },
+      {
+        "name": "The Laser Edge Rule",
+        "body": "Containers and cards must never rely on heavy or multi-pixel borders. Outlines must remain crisp 1px borders with low-opacity cyan tinting (resting at rgba(0, 212, 255, 0.13), intensifying to rgba(0, 212, 255, 0.27) on hover).",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do maintain strict separation between Syne (headlines/titles) and Space Mono (metadata/body/tags).",
+      "Do preserve the deep cobalt tint of the void (#05080f), avoiding muddy uncalibrated black.",
+      "Do treat Arc Cyan (#00d4ff) as a high-signal indicator, keeping total viewport coverage below 10%.",
+      "Do use 1px laser borders and emission blooms for elevation rather than dark sun shadows.",
+      "Do provide tactile, responsive 3D tilt and hover feedback on all primary portfolio cards."
+    ],
+    "donts": [
+      "Don't introduce generic corporate AI gradients (purple, magenta, indigo, or pastel mesh blobs).",
+      "Don't use bubbly or cartoonish border radii (e.g. rounded-3xl or organic irregular blobs).",
+      "Don't obscure code repositories, live links, or architectural descriptions behind unnecessary modal steps.",
+      "Don't introduce unreadable terminal matrix rains or high-frequency distracting glitch loops.",
+      "Don't sacrifice contrast: body text must always maintain legible slate-to-white contrast against dark plates."
+    ]
+  }
+}

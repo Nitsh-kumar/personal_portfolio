@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Editor & Local tool configs
+.claude/
+.codex/
+.cursor/
+*.local.json

@@ -1,127 +1,101 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import ParticleCanvas from "./ParticleCanvas";
+import { ArrowRight, Sparkles, Layers } from "lucide-react";
+import Hero3DCanvas from "./Hero3DCanvas";
+import Monogram from "./Monogram";
 
 export default function Hero() {
-  const targetMousePos = useRef({ x: 0, y: 0 });
-  const currentDotPos = useRef({ x: 0, y: 0 });
-  const currentRingPos = useRef({ x: 0, y: 0 });
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const textContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let animationFrameId: number;
-    let isMounted = true;
-
-    // Track mouse movement
-    const handleMouseMove = (e: MouseEvent) => {
-      targetMousePos.current = { x: e.clientX, y: e.clientY };
-
-      if (textContainerRef.current) {
-        // Map cursor position to a max of 5 degrees tilt
-        const tiltX = (e.clientY / window.innerHeight - 0.5) * -10;
-        const tiltY = (e.clientX / window.innerWidth - 0.5) * 10;
-        textContainerRef.current.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-      }
-    };
-
-    // Animation loop for custom cursor
-    const updateCursor = () => {
-      if (!isMounted) return;
-
-      currentDotPos.current.x = targetMousePos.current.x;
-      currentDotPos.current.y = targetMousePos.current.y;
-
-      // Linear interpolation for the lagging ring
-      currentRingPos.current.x += (targetMousePos.current.x - currentRingPos.current.x) * 0.12;
-      currentRingPos.current.y += (targetMousePos.current.y - currentRingPos.current.y) * 0.12;
-
-      // Apply transformations
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(calc(${currentDotPos.current.x}px - 50%), calc(${currentDotPos.current.y}px - 50%), 0)`;
-      }
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(calc(${currentRingPos.current.x}px - 50%), calc(${currentRingPos.current.y}px - 50%), 0)`;
-      }
-
-      animationFrameId = requestAnimationFrame(updateCursor);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    updateCursor();
-
-    return () => {
-      isMounted = false;
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-[#05080f] cursor-none flex items-center justify-center perspective-[1000px]">
-      {/* Background Video */}
-      <video
-        className="absolute inset-0 h-full w-full object-cover z-0"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        {/* INSERT_VIDEO_PATH */}
-      </video>
+    <section className="relative min-h-[92vh] w-full overflow-hidden bg-[#0b0d11] flex items-center pt-28 pb-16 px-6 sm:px-10 lg:px-16">
+      {/* Subtle architectural ambient gradient - restrained warm amber flare */}
+      <div className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#ff6b35]/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-[rgba(5,8,15,0.6)] z-[1]" />
+      <div className="max-w-7xl mx-auto w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* LEFT COLUMN: Authority Content */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            
+            {/* Identity & Status Badge */}
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#12151c] border border-[#222735] mb-8 shadow-sm">
+              <Monogram size={18} />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" aria-hidden="true" />
+              <span className="font-mono text-xs tracking-wider text-[#9ba3af]">
+                Software Engineer @ <span className="text-[#f1f3f7] font-semibold">Sopra Steria</span> &middot; GenAI Builder
+              </span>
+            </div>
 
-      {/* Interactive Particle Canvas */}
-      <ParticleCanvas mousePos={targetMousePos} />
+            {/* Headline - No gradient text, pure weight & scale */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-[#f1f3f7] leading-[1.08] tracking-tight mb-6">
+              Engineering intelligent architectures &amp; autonomous agent systems.
+            </h1>
 
-      {/* CSS Grid Background Pattern */}
-      <div
-        className="absolute inset-0 z-[2] opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><path d="M0 0h40v40H0z" fill="none"/><path d="M0 39.5h40M39.5 0v40" stroke="%23ffffff" stroke-width="1"/></svg>')`,
-          backgroundSize: '40px 40px'
-        }}
-      />
+            {/* Architectural Subtitle */}
+            <p className="text-lg sm:text-xl text-[#9ba3af] leading-relaxed max-w-2xl mb-10 font-sans">
+              I design and deploy production-grade LLM platforms, custom Model Context Protocol (MCP) servers,
+              and low-latency data pipelines that bridge generative AI research with reliable enterprise scalability.
+            </p>
 
-      {/* Centered Content */}
-      <div
-        ref={textContainerRef}
-        className="relative z-10 flex flex-col items-center justify-center text-center px-4 transition-transform duration-100 ease-out"
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        <span
-          className="font-space-mono text-[#00d4ff] text-[11px] tracking-[4px] mb-6 block uppercase"
-        >
-          GENERATIVE AI DEVELOPER
-        </span>
-        <h1
-          className="font-syne text-[36px] md:text-[64px] text-[#e8f4ff] font-bold leading-tight mb-4"
-        >
-          Building minds with code.
-        </h1>
-        <p className="text-[#8899aa] text-lg md:text-xl font-medium mb-10 max-w-2xl">
-          LLMs · RAG Pipelines · Agents · LANGCHAIN
-        </p>
-        {/* <button
-          className="bg-[#00d4ff] text-[#05080f] font-semibold rounded-full px-8 py-4 cursor-none transition-all duration-300 hover:shadow-[0_0_24px_#00d4ff]"
-        >
-          View My Work
-        </button> */}
+            {/* Primary Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-14">
+              <a
+                href="#projects"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-lg bg-[#ff6b35] text-[#0b0d11] font-mono text-xs font-bold tracking-widest uppercase hover:bg-[#ff8352] transition-colors focus-visible:ring-2 focus-visible:ring-[#ff6b35] focus-visible:outline-none min-h-[48px] shadow-sm"
+              >
+                <span>EXPLORE WORK</span>
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+
+              <a
+                href="#architecture"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-lg bg-[#12151c] text-[#f1f3f7] border border-[#222735] hover:border-[#ff6b35]/50 hover:bg-[#181c26] font-mono text-xs font-semibold tracking-widest uppercase transition-colors focus-visible:ring-2 focus-visible:ring-[#ff6b35] focus-visible:outline-none min-h-[48px]"
+              >
+                <Layers size={16} className="text-[#ff6b35]" aria-hidden="true" />
+                <span>AI ARCHITECTURE</span>
+              </a>
+
+              <a
+                href="#contact"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg text-[#9ba3af] hover:text-[#f1f3f7] font-mono text-xs tracking-wider transition-colors min-h-[48px]"
+              >
+                <Sparkles size={14} className="text-[#ff6b35]" aria-hidden="true" />
+                <span>GET IN TOUCH</span>
+              </a>
+            </div>
+
+            {/* Architectural Evidence Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full pt-8 border-t border-[#222735]">
+              {[
+                { label: "Organization", val: "Sopra Steria" },
+                { label: "Core Protocol", val: "Model Context (MCP)" },
+                { label: "Flagship Platform", val: "GPTCraft (Live)" },
+                { label: "Base", val: "Noida, India" },
+              ].map((item) => (
+                <div key={item.label} className="flex flex-col">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#64748b]">
+                    {item.label}
+                  </span>
+                  <span className="text-xs font-mono font-medium text-[#f1f3f7] mt-1">
+                    {item.val}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* RIGHT COLUMN: Interactive 3D Centerpiece */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
+            <Hero3DCanvas />
+            <div className="text-center mt-2">
+              <span className="text-[11px] font-mono text-[#64748b] tracking-wider">
+                INTERACTIVE 3D NEURAL CORE &middot; DRAG TO ROTATE
+              </span>
+            </div>
+          </div>
+
+        </div>
       </div>
-
-      {/* Custom Cursor */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 w-[8px] h-[8px] bg-[#00d4ff] rounded-full pointer-events-none z-50 will-change-transform"
-      />
-      <div
-        ref={ringRef}
-        className="fixed top-0 left-0 w-[36px] h-[36px] border border-[#00d4ff] rounded-full pointer-events-none z-50 will-change-transform"
-      />
     </section>
   );
 }

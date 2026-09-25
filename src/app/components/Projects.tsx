@@ -2,41 +2,71 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ExternalLink, Github, Sparkles, Zap, BarChart3, Brain } from "lucide-react";
 
-const projects = [
+interface Project {
+  title: string;
+  logo?: string;
+  icon?: React.ReactNode;
+  category: "GENAI & MCP" | "DATA & ANALYTICS";
+  tags: string[];
+  description: string;
+  highlight: string;
+  link?: string;
+  github: string;
+  featured?: boolean;
+}
+
+const projects: Project[] = [
   {
     title: "GPTCraft",
     logo: "/craft_logo.png",
-    emoji: "",
-    tags: ["LangChain", "GROQ", "MCP SERVERS SDK", "Python", "FastAPI", "React"],
-    description: "A Custom GPt let's You access to latest AI models, With Cutting Edge  MCP SERVERS",
+    category: "GENAI & MCP",
+    featured: true,
+    tags: ["Model Context Protocol (MCP)", "LangChain", "Groq LPU", "FastAPI", "React", "Python"],
+    description:
+      "A production Custom GPT platform granting seamless access to cutting-edge AI models with native Model Context Protocol (MCP) server integration, deterministic tool calling, and sub-400ms Groq inference.",
+    highlight: "Live MCP Servers SDK & Groq Sub-Second Inference",
     link: "https://gptcraft.in/",
-    github: "https://github.com/Nitsh-kumar/GPT_craft/tree/frontend"
+    github: "https://github.com/Nitsh-kumar/GPT_craft/tree/frontend",
   },
   {
-    title: "Vision Agent",
-    emoji: "🧠",
-    tags: ["YOLO", "OpenCV", "Python"],
-    description: "Real-time object detection and tracking pipeline optimized for edge deployment. Capable of processing 60fps video streams.",
-    link: "#",
-    github: "#"
+    title: "Data Nexa",
+    icon: <Zap size={22} className="text-[#ff6b35]" aria-hidden="true" />,
+    category: "DATA & ANALYTICS",
+    featured: true,
+    tags: ["Python", "Automated Profiling", "Pandas", "Statistical Analysis", "Data Quality"],
+    description:
+      "High-performance automated data profiling engine engineered to surpass standard ydata-profiling tools, offering deep statistical analysis, automated quality audits, and data distribution diagnostics.",
+    highlight: "Engineered Beyond Standard YData-Profiling",
+    github: "https://github.com/Nitsh-kumar/Data_Nexa",
   },
   {
-    title: "AI Chatbot",
-    emoji: "⚡",
-    tags: ["Anthropic", "FastAPI", "React"],
-    description: "Low-latency conversational interface with structured output parsing, tools integration, and stateful memory management.",
-    link: "#",
-    github: "#"
-  }
+    title: "Bank Statement Analyzer",
+    icon: <BarChart3 size={22} className="text-[#ff6b35]" aria-hidden="true" />,
+    category: "DATA & ANALYTICS",
+    tags: ["Streamlit", "Python", "Financial Analytics", "CSV Parsing", "Categorization"],
+    description:
+      "Intelligent financial parsing system that ingests bank statement CSVs, automatically categorizes expenses and income, and delivers interactive visual spending distribution intelligence.",
+    highlight: "Automated Financial Categorization & Visual Reporting",
+    github: "https://github.com/Nitsh-kumar/Bank_statement_analyzer",
+  },
+  {
+    title: "ChatGPT Review Sentiment Intelligence",
+    icon: <Brain size={22} className="text-[#ff6b35]" aria-hidden="true" />,
+    category: "GENAI & MCP",
+    tags: ["NLP", "Transformers", "Sentiment Analysis", "Jupyter", "Python"],
+    description:
+      "End-to-end NLP classification pipeline analyzing thousands of ChatGPT user feedback reviews to uncover satisfaction indices, feature demand signals, and customer sentiment distribution.",
+    highlight: "NLP Sentiment Classification & Review Mining",
+    github: "https://github.com/Nitsh-kumar/Chatgpt_Review_Analysis",
+  },
 ];
 
-const ProjectCard = ({ project, index }: { project: any; index: number }) => {
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [transform, setTransform] = useState("rotateX(0deg) rotateY(0deg) translateZ(0px)");
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,6 +87,12 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -64,106 +100,123 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    // max 15deg
-    const rotateX = ((y - centerY) / centerY) * -15;
-    const rotateY = ((x - centerX) / centerX) * 15;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
 
-    setTransform(`rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`);
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(4px)`;
   };
 
   const handleMouseLeave = () => {
-    setTransform("rotateX(0deg) rotateY(0deg) translateZ(0px)");
-    setIsHovered(false);
+    if (cardRef.current) {
+      cardRef.current.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
+    }
   };
 
   return (
     <div
       ref={observerRef}
       style={{
-        perspective: "1000px",
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(40px)",
-        transition: `opacity 0.6s ease-out ${index * 150}ms, transform 0.6s ease-out ${index * 150}ms`,
+        transform: isVisible ? "translateY(0)" : "translateY(24px)",
+        transition: `opacity 0.5s ease-out ${index * 100}ms, transform 0.5s ease-out ${index * 100}ms`,
       }}
+      className="h-full"
     >
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        onMouseEnter={() => setIsHovered(true)}
-        className="bg-[#0a1628] p-[28px] relative flex flex-col h-full z-10"
-        style={{
-          borderRadius: "12px",
-          transform,
-          transformStyle: "preserve-3d",
-          transition: "transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease",
-          border: `1px solid ${isHovered ? "#00d4ff44" : "#00d4ff22"}`,
-          boxShadow: isHovered ? "0 20px 60px rgba(0,212,255,0.1)" : "none",
-        }}
+        className="relative flex flex-col justify-between h-full p-7 sm:p-8 rounded-xl bg-[#12151c] border border-[#222735] hover:border-[#ff6b35]/40 transition-all duration-200 group"
+        style={{ transformStyle: "preserve-3d" }}
       >
-        {/* Top accent line */}
-        <div
-          className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00d4ff] to-transparent opacity-70"
-          style={{ borderTopLeftRadius: "12px", borderTopRightRadius: "12px" }}
-        />
-
-        <div style={{ transform: isHovered ? "translateZ(30px)" : "translateZ(0)", transition: "transform 0.3s ease" }} className="flex flex-col h-full">
-          <div className="flex items-center gap-3 mb-6">
-            {project.logo ? (
-              <div className="w-[45px] h-[45px] relative rounded-xl overflow-hidden bg-[#00d4ff11] border border-[#00d4ff22] flex items-center justify-center p-2">
-                <Image
-                  src={project.logo}
-                  alt={`${project.title} Logo`}
-                  fill
-                  className="object-contain p-2"
-                />
+        <div>
+          {/* Header Row */}
+          <div className="flex items-center justify-between gap-3 mb-6">
+            <div className="flex items-center gap-3.5">
+              {project.logo ? (
+                <div className="w-12 h-12 relative rounded-lg overflow-hidden bg-[#181c26] border border-[#222735] flex items-center justify-center p-2">
+                  <Image
+                    src={project.logo}
+                    alt={`${project.title} Logo`}
+                    fill
+                    className="object-contain p-2"
+                  />
+                </div>
+              ) : (
+                <div className="w-12 h-12 rounded-lg bg-[#181c26] border border-[#222735] flex items-center justify-center">
+                  {project.icon}
+                </div>
+              )}
+              <div>
+                <span className="text-xs font-mono uppercase tracking-widest text-[#ff6b35]">
+                  {project.category}
+                </span>
+                <h3 className="text-xl font-bold text-[#f1f3f7] group-hover:text-[#ff6b35] transition-colors">
+                  {project.title}
+                </h3>
               </div>
-            ) : (
-              <div className="text-[28px]">{project.emoji}</div>
+            </div>
+
+            {project.featured && (
+              <span className="flex items-center gap-1.5 text-[11px] font-mono font-medium px-2.5 py-1 rounded bg-[#ff6b35]/10 border border-[#ff6b35]/30 text-[#ff6b35]">
+                <Sparkles size={12} aria-hidden="true" />
+                FLAGSHIP
+              </span>
             )}
           </div>
 
-          <h3 className="font-syne text-[18px] text-[#e8f4ff] font-bold mb-4 tracking-tight group-hover:text-[#00d4ff] transition-colors">
-            {project.title}
-          </h3>
+          {/* Key architecture highlight badge */}
+          <div className="mb-4 px-3 py-1.5 rounded bg-[#181c26] border border-[#222735] text-xs font-mono text-[#cbd5e1]">
+            <span className="text-[#ff6b35] mr-1.5">&gt;</span> {project.highlight}
+          </div>
 
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tags.map((tag: string, i: number) => (
+          {/* Description */}
+          <p className="text-sm text-[#9ba3af] leading-relaxed mb-6 font-sans">
+            {project.description}
+          </p>
+
+          {/* Tech tags */}
+          <div className="flex flex-wrap gap-1.5 mb-6">
+            {project.tags.map((tag, i) => (
               <span
                 key={i}
-                className="font-space-mono text-[10px] bg-[#00d4ff0a] border border-[#00d4ff15] text-[#00d4ffcc] rounded-[6px] px-[10px] py-[3px]"
+                className="text-[11px] font-mono px-2.5 py-1 rounded bg-[#0b0d11] border border-[#222735] text-[#9ba3af]"
               >
                 {tag}
               </span>
             ))}
           </div>
+        </div>
 
-          <p className="text-[13px] text-[#8899aa] leading-relaxed mb-8 flex-grow">
-            {project.description}
-          </p>
-
-          <div className="flex items-center justify-between mt-auto">
+        {/* Card Footer Actions */}
+        <div className="flex items-center justify-between pt-4 border-t border-[#222735] mt-auto">
+          {project.link ? (
             <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#00d4ff] text-[14px] flex items-center gap-2 hover:underline font-space-mono group/link"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#ff6b35] hover:text-[#ff8352] transition-colors min-h-[40px] px-2 -ml-2 rounded focus-visible:ring-2 focus-visible:ring-[#ff6b35] focus-visible:outline-none"
+              aria-label={`Open live application for ${project.title} (opens in new tab)`}
             >
-              View Project
-              <span className="transition-transform group-hover/link:translate-x-1">&rarr;</span>
+              <span>LIVE APPLICATION</span>
+              <ExternalLink size={14} aria-hidden="true" />
             </a>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#8899aa] hover:text-[#00d4ff] transition-all duration-300 hover:scale-110"
-              aria-label="GitHub Repository"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-            </a>
-          </div>
+          ) : (
+            <span className="text-xs font-mono text-[#64748b] py-2">
+              Open-Source Utility
+            </span>
+          )}
+
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-xs font-mono text-[#9ba3af] hover:text-[#f1f3f7] transition-colors p-2 min-h-[40px] rounded hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-[#ff6b35] focus-visible:outline-none"
+            aria-label={`View ${project.title} source code on GitHub (opens in new tab)`}
+          >
+            <Github size={15} aria-hidden="true" />
+            <span>SOURCE CODE</span>
+          </a>
         </div>
       </div>
     </div>
@@ -171,23 +224,68 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
 };
 
 export default function Projects() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+
+  const categories = ["ALL", "GENAI & MCP", "DATA & ANALYTICS"];
+
+  const filteredProjects =
+    selectedCategory === "ALL"
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
+
   return (
-    <section id="projects" className="bg-[#05080f] py-[120px] px-6 sm:px-12 relative z-10">
+    <section id="projects" className="py-28 px-6 lg:px-16 bg-[#0b0d11] relative z-10 border-t border-[#222735]">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-16">
-          <p className="font-space-mono text-[#00d4ff] tracking-widest text-sm mb-4 uppercase">
-            SELECTED WORK
-          </p>
-          <h2 className="font-syne text-[48px] text-white font-bold leading-tight">
-            Projects that think.
-          </h2>
+        
+        {/* Section Heading & Category Filter Row */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div>
+            <h2 className="text-3xl sm:text-5xl font-bold text-[#f1f3f7] leading-tight">
+              Selected systems &amp; repositories.
+            </h2>
+            <p className="text-[#9ba3af] text-base max-w-2xl mt-4 font-sans">
+              Production AI platforms, custom Model Context Protocol (MCP) tool routers, and statistical data profiling engines.
+            </p>
+          </div>
+
+          {/* Category Filter Tabs */}
+          <div
+            role="tablist"
+            aria-label="Filter projects by category"
+            className="flex flex-wrap gap-1.5 p-1 rounded-lg bg-[#12151c] border border-[#222735]"
+          >
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                role="tab"
+                aria-selected={selectedCategory === cat}
+                aria-controls="projects-grid"
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-3.5 py-2 min-h-[40px] rounded-md text-xs font-mono tracking-wider transition-colors focus-visible:ring-2 focus-visible:ring-[#ff6b35] focus-visible:outline-none ${
+                  selectedCategory === cat
+                    ? "bg-[#ff6b35] text-[#0b0d11] font-bold"
+                    : "text-[#9ba3af] hover:text-[#f1f3f7]"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+        {/* Project Grid */}
+        <div
+          id="projects-grid"
+          role="region"
+          aria-live="polite"
+          aria-label={`${selectedCategory} projects grid`}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {filteredProjects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
+
       </div>
     </section>
   );

@@ -11,6 +11,7 @@ interface Particle {
   baseVy: number;
   size: number;
   alpha: number;
+  color: string;
 }
 
 interface ParticleCanvasProps {
@@ -28,17 +29,32 @@ export default function ParticleCanvas({ mousePos }: ParticleCanvasProps) {
 
     let particles: Particle[] = [];
     let animationFrameId: number;
+    let isVisible = true;
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const colors = ["#00d4ff", "#00aacc", "#38bdf8", "#e8f4ff"];
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.scale(dpr, dpr);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
     };
 
     const initParticles = () => {
       particles = [];
-      for (let i = 0; i < 60; i++) {
-        const baseVx = (Math.random() - 0.5) * 0.6; // vx: random ±0.3
-        const baseVy = (Math.random() - 0.5) * 0.6; // vy: random ±0.3
+      const particleCount = prefersReducedMotion
+        ? 24
+        : Math.floor(Math.min(window.innerWidth / 20, 60));
+
+      for (let i = 0; i < particleCount; i++) {
+        const baseVx = (Math.random() - 0.5) * 0.4;
+        const baseVy = (Math.random() - 0.5) * 0.4;
         particles.push({
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
@@ -46,57 +62,70 @@ export default function ParticleCanvas({ mousePos }: ParticleCanvasProps) {
           vy: baseVy,
           baseVx,
           baseVy,
-          size: Math.random() * 1.5 + 0.3, // size: 0.3-1.8px
-          alpha: Math.random() * 0.4 + 0.1, // alpha: 0.1-0.5
+          size: Math.random() * 1.6 + 0.8,
+          alpha: Math.random() * 0.4 + 0.2,
+          color: colors[Math.floor(Math.random() * colors.length)],
         });
       }
     };
 
-    window.addEventListener("resize", resizeCanvas);
+    const handleResize = () => {
+      resizeCanvas();
+      initParticles();
+      if (prefersReducedMotion) {
+        renderFrame(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
     resizeCanvas();
     initParticles();
 
-    const drawParticles = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const renderFrame = (continuous: boolean) => {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       const mx = mousePos.current.x;
       const my = mousePos.current.y;
 
-      // Update and draw each particle
+      // Update & render particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Interaction with mouse
-        const dx = p.x - mx;
-        const dy = p.y - my;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (continuous) {
+          // Cursor attraction & gentle displacement
+          const dx = p.x - mx;
+          const dy = p.y - my;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 120 && dist > 0) {
-          const force = (120 - dist) / 120;
-          p.vx += (dx / dist) * force * 0.5;
-          p.vy += (dy / dist) * force * 0.5;
+          if (dist < 120 && dist > 0) {
+            const force = (120 - dist) / 120;
+            p.vx += (dx / dist) * force * 0.5;
+            p.vy += (dy / dist) * force * 0.5;
+          }
+
+          // Velocity damping
+          p.vx = p.vx * 0.96 + p.baseVx * 0.04;
+          p.vy = p.vy * 0.96 + p.baseVy * 0.04;
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Wrap around boundaries
+          if (p.x < 0) p.x = window.innerWidth;
+          if (p.x > window.innerWidth) p.x = 0;
+          if (p.y < 0) p.y = window.innerHeight;
+          if (p.y > window.innerHeight) p.y = 0;
         }
 
-        // Apply velocity damping and smoothly return to base velocity
-        p.vx = p.vx * 0.98 + p.baseVx * 0.02;
-        p.vy = p.vy * 0.98 + p.baseVy * 0.02;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap around canvas edges
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        // Draw particle
+        // Render particle node without expensive shadowBlur
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 212, 255, ${p.alpha})`;
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
         ctx.fill();
       }
 
-      // Draw lines between nearby particles
+      // Connect synoptic edges
       ctx.lineWidth = 0.5;
       for (let i = 0; i < particles.length; i++) {
         const p1 = particles[i];
@@ -106,24 +135,45 @@ export default function ParticleCanvas({ mousePos }: ParticleCanvasProps) {
           const dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          // Connect particles within 90px of each other
           if (dist < 90) {
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 212, 255, ${0.12 * (1 - dist / 90)})`;
+            ctx.strokeStyle = p1.color;
+            ctx.globalAlpha = 0.12 * (1 - dist / 90);
             ctx.stroke();
           }
         }
       }
+      ctx.globalAlpha = 1;
 
-      animationFrameId = requestAnimationFrame(drawParticles);
+      if (continuous && isVisible) {
+        animationFrameId = requestAnimationFrame(() => renderFrame(true));
+      }
     };
 
-    drawParticles();
+    if (prefersReducedMotion) {
+      renderFrame(false);
+    } else {
+      renderFrame(true);
+    }
+
+    // Pause loop when canvas is scrolled out of viewport
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible && !prefersReducedMotion) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(() => renderFrame(true));
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    });
+
+    observer.observe(canvas);
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      observer.disconnect();
+      window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
   }, [mousePos]);
