@@ -11,7 +11,7 @@ interface Message {
 
 const KNOWLEDGE_BASE: Record<string, string> = {
   sopra:
-    "Nitish is a Software Engineer at Sopra Steria in Noida, India. He builds enterprise data-centric software utilities, automation pipelines, and robust backend services.",
+    "Nitish is a Senior Software Engineer (Applied AI & Backend Engineering) at Sopra Steria in Noida, India with 4 years of software engineering experience. He builds enterprise GenAI platforms including an AI-assisted SAP custom-code assessment and remediation platform (pilot with a European aerospace client) using LangGraph, LangChain, Celery, PostgreSQL, and Google Vertex AI.",
   gptcraft:
     "GPTCraft (https://gptcraft.in/) is Nitish's flagship GenAI platform. It connects users to cutting-edge models with native Model Context Protocol (MCP) server integration, Groq sub-second inference, LangChain orchestration, and FastAPI.",
   mcp:

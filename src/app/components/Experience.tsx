@@ -5,19 +5,20 @@ import { Calendar, MapPin, ExternalLink } from "lucide-react";
 export default function Experience() {
   const experiences = [
     {
-      role: "Software Engineer",
+      role: "Senior Software Engineer – Applied AI & Backend",
       company: "Sopra Steria",
-      period: "Current",
+      period: "Jul. 2022 – Present",
       location: "Noida, India",
       type: "Full-Time",
       description:
-        "Contributing to enterprise software engineering initiatives, building data-centric automation utilities, and developing scalable internal tool architectures for global business operations.",
+        "Developing an AI-assisted SAP custom-code assessment and remediation platform (currently in pilot with a European aerospace client) utilizing Python, FastAPI, LangGraph/LangChain, Celery, PostgreSQL, and Google Vertex AI.",
       highlights: [
-        "Engineering reliable data processing workflows and internal software services for enterprise client solutions.",
-        "Collaborating across multidisciplinary engineering teams to integrate microservices with modern security standards.",
-        "Driving implementation of clean code architecture, automated test suites, and streamlined data extraction pipelines.",
+        "Built LLM-powered RAG and agentic workflows using embeddings, metadata filtering, hybrid retrieval, reranking, and citation-aware responses.",
+        "Designed durable AI orchestration with dependency-aware asynchronous workflows, checkpoints, idempotency keys, and failure recovery across transport stages.",
+        "Implemented trustworthy AI guardrails, structural checks, diff controls, and review gates to prevent regression risks in AI-assisted code changes.",
+        "Integrated enterprise SAP systems via PyRFC for automated custom-code extraction and migration workflows across SAP ECC and S/4HANA.",
       ],
-      tags: ["AI Software", "Enterprise Data Systems", "Python", "API Services", "Microservices"],
+      tags: ["LangGraph & LangChain", "FastAPI & Python", "Google Vertex AI", "Celery & Redis", "SAP S/4HANA & PyRFC"],
     },
     {
       role: "AI Systems Architect & Creator",

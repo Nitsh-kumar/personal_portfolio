@@ -21,7 +21,7 @@ export default function Hero() {
               <Monogram size={18} />
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" aria-hidden="true" />
               <span className="font-mono text-xs tracking-wider text-[#9ba3af]">
-                Software Engineer @ <span className="text-[#f1f3f7] font-semibold">Sopra Steria</span> &middot; GenAI Builder
+                Applied AI Engineer @ <span className="text-[#f1f3f7] font-semibold">Sopra Steria</span> &middot; GenAI Systems
               </span>
             </div>
 

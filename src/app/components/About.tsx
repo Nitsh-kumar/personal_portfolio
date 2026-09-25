@@ -58,10 +58,10 @@ export default function About() {
   };
 
   const stats = [
-    { value: "Sopra Steria", label: "Software Engineer", icon: <Briefcase size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
-    { value: "17+", label: "Public Repositories", icon: <Code2 size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
-    { value: "MCP Standard", label: "Agent Integration", icon: <Cpu size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
-    { value: "Noida, IN", label: "Engineering Base", icon: <MapPin size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
+    { value: "Sopra Steria", label: "Senior Applied AI Engineer", icon: <Briefcase size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
+    { value: "4 Years", label: "Engineering Experience", icon: <Code2 size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
+    { value: "LangGraph & MCP", label: "Agentic Workflows", icon: <Cpu size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
+    { value: "Noida, IN", label: "Active Base", icon: <MapPin size={16} className="text-[#ff6b35]" aria-hidden="true" /> },
   ];
 
   return (
@@ -131,15 +131,15 @@ export default function About() {
             </h2>
 
             <p className="text-[#9ba3af] text-base sm:text-lg leading-relaxed font-sans">
-              I am a Software Engineer at <strong className="text-[#f1f3f7] font-semibold">Sopra Steria</strong> in Noida, India,
-              focusing on enterprise-grade software architectures, data processing utilities, and scalable system integration.
+              I am a Senior Software Engineer (Applied AI &amp; Backend Engineering) at <strong className="text-[#f1f3f7] font-semibold">Sopra Steria</strong> in Noida, India,
+              with 4 years of engineering experience across Generative AI, LLM-powered applications, Python backend services, and enterprise SAP S/4HANA systems.
             </p>
 
             <p className="text-[#9ba3af] text-base leading-relaxed font-sans">
-              My engineering focus centers on <strong className="text-[#f1f3f7] font-semibold">Generative AI systems</strong>.
-              I architect autonomous agent pipelines, build custom <strong className="text-[#f1f3f7] font-semibold">Model Context Protocol (MCP)</strong> servers,
-              and build multi-modal retrieval pipelines like <em>GPTCraft</em> (connecting LLMs with real-time enterprise tools)
-              and high-performance data auditing systems like <em>Data Nexa</em>.
+              Currently, I contribute to an AI-assisted SAP custom-code assessment and remediation platform (pilot with a European aerospace client)
+              using LangGraph, LangChain, Celery, and Google Vertex AI. My focus is architecting durable agentic loops with checkpointing,
+              deterministic tool-calling via the <strong className="text-[#f1f3f7] font-semibold">Model Context Protocol (MCP)</strong>,
+              and low-latency platforms like <em>GPTCraft</em>.
             </p>
 
             {/* Core Capability Chips */}

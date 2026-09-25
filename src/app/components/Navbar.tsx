@@ -92,7 +92,7 @@ export default function Navbar() {
               Nitish Kumar
             </span>
             <span className="text-xs text-[#9ba3af] tracking-widest font-mono">
-              SOFTWARE ENGINEER &middot; SOPRA STERIA
+              APPLIED AI ENGINEER &middot; SOPRA STERIA
             </span>
           </div>
         </Link>
@@ -168,7 +168,7 @@ export default function Navbar() {
               <Monogram size={28} />
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-[#f1f3f7]">Nitish Kumar</span>
-                <span className="text-[11px] font-mono text-[#9ba3af]">Generative AI &amp; Software Engineering</span>
+                <span className="text-[11px] font-mono text-[#9ba3af]">Applied AI Engineer &middot; Sopra Steria</span>
               </div>
             </div>
             {navLinks.map((link) => {
