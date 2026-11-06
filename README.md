@@ -1,62 +1,59 @@
-# Nitish Kumar — Personal Portfolio & AI Systems Showcase
+# Nitish Kumar — Personal Portfolio
 
-A futuristic, high-performance personal portfolio built for **Nitish Kumar**, Data-Focused Software Engineer at **Sopra Steria** and **Generative AI Developer** specializing in LLM systems, RAG pipelines, and Model Context Protocol (MCP) servers.
+A Next.js portfolio for presenting my engineering background, selected projects, and contact links.
 
----
+## Implemented interface
 
-## ⚡ Key Highlights & Features
+- Single-page navigation, career and skills sections, and project cards.
+- Three.js hero artwork with supporting visual assets.
+- A local FAQ widget that selects predefined answers by keyword.
+- A contact form that opens an email draft in the visitor's mail client.
 
-- **Synoptic Particle Canvas**: Interactive neural network mesh built on HTML5 Canvas with high-DPI scaling, cursor gravity, and glowing nodes.
-- **Glassmorphic Navigation**: Top-level header featuring a live Sopra Steria status indicator, gradient scroll progress bar, Resume download link, and responsive mobile slide-out drawer.
-- **Hero & Dynamic Role Ticker**: Animated role badge, reactive 3D tilt, and dynamic keyword rotation (`LLM Orchestration · RAG Pipelines · MCP Servers · Autonomous Agents`).
-- **Authentic Career Profile & Journey**: Showcases software engineering at Sopra Steria (Noida, India) alongside open-source AI breakthroughs.
-- **Featured Projects Bento**: Real-world projects with live links and repository access:
-  - **GPTCraft** (`https://gptcraft.in/`) — Flagship Custom GPT application integrating MCP Servers SDK, LangChain, Groq sub-second inference, and React.
-  - **Data Nexa** — High-performance automated data profiling engine engineered beyond standard ydata-profiling.
-  - **Bank Statement Analyzer** — Streamlit & Python intelligent financial classification tool.
-  - **ChatGPT Review Analysis** — NLP sentiment classification pipeline.
-- **Interactive GenAI Architecture Visualizer**: Step-by-step interactive diagram detailing how Nitish designs end-to-end GenAI systems (Query ➔ MCP Protocol ➔ Vector RAG ➔ LangChain ReAct ➔ Groq LPU).
-- **Technical Skills Matrix**: 4-quadrant Bento matrix categorizing Generative AI, Data Engineering, Modern Frontend, and Cloud/DevOps.
-- **Interactive "Ask Nitish AI" Console**: Floating cyberpunk terminal drawer at the bottom-right corner featuring instant knowledge base retrieval and streaming typewriter responses for recruiters and visitors.
-- **Contact Hub & Live Footer**: Interactive form with real-time submission feedback, one-click email copy (`tevathiyanitish800600@gmail.com`), direct WhatsApp link, and live Indian Standard Time (`IST`) clock.
+The FAQ widget does not call an LLM or retrieve external documents. Its typing delay is a display effect. The contact form does not send email or confirm delivery.
 
----
+## Stack
 
-## 🛠️ Tech Stack
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, Three.js, and Lucide React, as declared in [package.json](package.json).
 
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router & Turbopack)
-- **UI Library**: [React 19](https://react.dev/)
-- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
-- **Language**: [TypeScript 5](https://www.typescriptlang.org/)
-- **Iconography**: [Lucide React](https://lucide.dev/)
-- **Fonts**: Syne & Space Mono (Google Fonts)
+## Local setup
 
----
-
-## 🚀 Getting Started
-
-First, install the dependencies:
+Use a Node.js release compatible with the pinned Next.js version and the included npm lockfile.
 
 ```bash
-npm install
-```
-
-Run the development server:
-
-```bash
+git clone https://github.com/Nitsh-kumar/personal_portfolio.git
+cd personal_portfolio
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-Build for production:
+Open the URL printed by Next.js, normally `http://localhost:3000`.
 
 ```bash
+npm run lint
 npm run build
+npm run start
 ```
 
----
+`start` serves an existing production build.
 
-## 📄 License
+## Source map
 
-Licensed under the MIT License.
+- [src/app/page.tsx](src/app/page.tsx): page composition.
+- [src/app/components](src/app/components): portfolio sections.
+- [src/app/components/AIAssistant.tsx](src/app/components/AIAssistant.tsx): predefined FAQ replies.
+- [src/app/components/Contact.tsx](src/app/components/Contact.tsx): mailto draft generation.
+- [src/app/layout.tsx](src/app/layout.tsx): metadata and fonts.
+- [public](public): images, branding, and the downloadable resume.
+- [DESIGN.md](DESIGN.md): visual design specification.
+
+## Content accuracy
+
+Project links and interface text need to track the actual project status. GPTCraft is a personal chat application; the employer's CRAFT SAP migration work is separate. MCP integration, model availability, deployment status, and latency must not be inferred from decorative diagrams or project cards.
+
+Review the published resume, contact details, metadata domain, and FAQ statements before sharing the site. The current metadata points to a GPTCraft domain whose ownership and deployment role need confirmation.
+
+No LICENSE file is present in the reviewed tree; the previous MIT claim should not be treated as a license grant. See [project status](docs/PROJECT_STATUS.md).
+
+## Validation
+
+This documentation was checked against repository files on 13 October 2026. Builds, application runs, and test suites were not executed during this documentation pass. Commands below describe the intended local workflow, not a verified deployment.
